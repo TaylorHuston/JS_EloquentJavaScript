@@ -16,7 +16,19 @@ function isEven(x) {
   }
 }
 
+function countB(myString) {
+  var count = 0;
+  for (var  i = 0; i < myString.length; i++) {
+    if (myString.charAt(i) == "B") {
+      count++
+    }
+  }
+  return count;
+}
+
 console.log(min(10, 7));
 console.log(isEven(50));
 console.log(isEven(75))
 console.log(isEven(-75))
+console.log(countB("BBC"));
+console.log(countB("aAbBcC"));
