@@ -22,5 +22,17 @@ function reverseArray(myArray) {
   return newArray;
 }
 
+function ReverseArrayInPlace(myArray) {
+  var newArray = [];
+  for (var i = myArray.length-1; i >= 0; i--) {
+    newArray.push(myArray[i]);
+  }
+    for (var i = 0; i < newArray.length; i++) {
+    myArray[i] = newArray[i];
+  }
+  return myArray;
+}
+
 console.log(sum(range(1,10)));
 console.log(reverseArray(["A","B","C"]));
+console.log(reverseArrayInPlace(["A","B","C"]));
