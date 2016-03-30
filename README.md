@@ -1,3 +1,3 @@
-#Eloquent JavaSctip
+#Eloquent JavaScript
 
-Repo for the examples from reading through <a href="http://eloquentjavascript.net/01_values.html" target="_blank">Eloquent JavaScript</a>
+Repo for the examples from reading through <a href="http://eloquentjavascript.net/" target="_blank">Eloquent JavaScript</a>
