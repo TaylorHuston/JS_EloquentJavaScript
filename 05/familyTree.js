@@ -86,6 +86,22 @@ function female(p) {
 }
 console.log(average(ancestry.filter(male).map(age))); //61.67
 
+
+
+var theSet = ["Carel Haverbeke", "Maria van Brussel",  "Donald Duck"];
+function isInSet(set, person) {
+  return set.indexOf(person.name) > -1;
+}
+
+//Both of these produce the same result, returning any information from ancestry.js for the names in theSet
+console.log(ancestry.filter(function(person) {
+  return isInSet(theSet, person);
+}));
+
+//Binding example
+console.log(ancestry.filter(isInSet.bind(null, theSet))); 
+
+/****DNA CALCULATOR****/
 //Build a JSON object of everyone by name
 var byName = {};
 ancestry.forEach(function (person) {
