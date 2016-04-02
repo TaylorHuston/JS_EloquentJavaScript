@@ -86,8 +86,32 @@ function female(p) {
 }
 console.log(average(ancestry.filter(male).map(age))); //61.67
 
-//Build a JSON object of just the names
+//Build a JSON object of everyone by name
 var byName = {};
-ancestry.forEach(function(person) {
+ancestry.forEach(function (person) {
   byName[person.name] = person;
-})
+});
+console.log(byName["Philibert Haverbeke"]);
+
+//Function to reduce the family tree and run a function on each person
+function reduceAncestors(person, someFunc, defaultValue) {
+  function valueFor(person) {
+    if (person == null)
+      return defaultValue;
+    else
+      return someFunc(person, valueFor(byName[person.mother]), valueFor(byName[person.father])); //Recursively work up the family tree
+  }
+  return valueFor(person);
+}
+
+//Function to calculate the amount of DNA from a specific ancestor
+function sharedDNA(person, fromMother, fromFather) {
+  if (person.name == "Pauwels van Haverbeke") {
+    return 1; //Person shares 100% of their DNA with themselves
+  } else {
+    return (fromMother + fromFather) / 2; //Each person contains 1/2 of the ancestral DNA from each parent
+  }
+}
+
+var grandfather = byName["Philibert Haverbeke"];
+console.log(reduceAncestors(grandfather, sharedDNA, 0) / 4);
