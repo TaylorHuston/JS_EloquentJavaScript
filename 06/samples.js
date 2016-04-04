@@ -51,3 +51,11 @@ function Rabbit(type) {
 var killerRabbit = new Rabbit("killer");
 var blackRabbit = new Rabbit("black");
 console.log(blackRabbit.type);
+
+//Add funciontality to a class
+Rabbit.prototype.speak = function(line) {
+  console.log("The " + this.type + " rabbit says '" +
+              line + "'");
+};
+blackRabbit.speak("Doom...");
+killerRabbit.speak("The count shall be 3");
