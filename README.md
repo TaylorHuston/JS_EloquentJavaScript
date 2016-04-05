@@ -1,3 +1,3 @@
 # Eloquent JavaScript
 
-Repo for the examples from reading through <a href="http://eloquentjavascript.net/" target="_blank">Eloquent JavaScript</a>
+Repo for the samples and exercises from working through <a href="http://eloquentjavascript.net/" target="_blank">Eloquent JavaScript</a>
