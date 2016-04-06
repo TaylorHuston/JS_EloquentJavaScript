@@ -6,8 +6,7 @@ rabbit.speak = function (line) {
 
 rabbit.speak("I'm alive");
 
-
-
+//Object notation
 function speak(line) {
   console.log("The " + this.type + " rabbit says '" +
     line + "'");
@@ -59,3 +58,11 @@ Rabbit.prototype.speak = function(line) {
 };
 blackRabbit.speak("Doom...");
 killerRabbit.speak("The count shall be 3");
+
+//Override prototype values
+Rabbit.prototype.teeth = "small";
+console.log(killerRabbit.teeth);
+killerRabbit.teeth = "long, sharp, and bloody";
+console.log(killerRabbit.teeth);
+console.log(blackRabbit.teeth);
+console.log(Rabbit.prototype.teeth);
