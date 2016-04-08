@@ -27,9 +27,9 @@ speak.apply(fatRabbit, ["Nom nom"]);
 speak.call({type: "old"}, "Oh Myyyyyyyy.");
 
 //Prototypes
-console.log(Object.getPrototypeOf({}) == Object.prototype);
-console.log(Object.getPrototypeOf(isNaN) == Function.prototype);
-console.log(Object.getPrototypeOf([]) == Array.prototype);
+console.log(Object.getPrototypeOf({}) == Object.prototype);  //True
+console.log(Object.getPrototypeOf(isNaN) == Function.prototype);  //True
+console.log(Object.getPrototypeOf([]) == Array.prototype);  //True
 
 //Prototype (like class?)
 var protoRabbit = {
@@ -38,6 +38,8 @@ var protoRabbit = {
                 line + "'");
   }
 };
+
+//Create an object with a specific prototype
 var killerRabbit = Object.create(protoRabbit);
 killerRabbit.type = "killer";
 killerRabbit.speak("SKREEEE!");
@@ -49,7 +51,7 @@ function Rabbit(type) {
 
 var killerRabbit = new Rabbit("killer");
 var blackRabbit = new Rabbit("black");
-console.log(blackRabbit.type);
+console.log(blackRabbit.type); //black
 
 //Add funciontality to a class
 Rabbit.prototype.speak = function(line) {
@@ -66,3 +68,8 @@ killerRabbit.teeth = "long, sharp, and bloody";
 console.log(killerRabbit.teeth);
 console.log(blackRabbit.teeth);
 console.log(Rabbit.prototype.teeth);
+
+//Create an object without a prototype
+var map = Object.create(null);
+map["someProp"] = 0.069;
+console.log("toString" in map);  //False.
