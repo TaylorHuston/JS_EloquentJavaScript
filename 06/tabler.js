@@ -1,5 +1,7 @@
 //Sample script to generate a table.
-//rows is an array of arrays, with each inner array representing a row of cells
+var DATA = require('./mountains.js');
+//var MOUNTAINS = JSON.parse(DATA);
+console.log(DATA);
 
 
 //Compute the arrays of the minmum column widths and row heights
@@ -50,6 +52,7 @@ function repeat(string, times) {
   return result;
 }
 
+//Basic text cell
 function TextCell(text) {
   this.text = text.split("\n");
 }
@@ -70,6 +73,21 @@ TextCell.prototype.draw = function (width, height) {
   return result;
 };
 
+//Cell with an underline
+function UnderlinedCell(inner) {
+  this.inner = inner;
+}
+UnderlinedCell.prototype.minWidth = function () {
+  return this.inner.minWidth();
+};
+UnderlinedCell.prototype.minHeight = function () {
+  return this.inner.minHeight() + 1;
+};
+UnderlinedCell.prototype.draw = function (width, height) {
+  return this.inner.draw(width, height - 1)
+    .concat([repeat("-", width)]);
+};
+
 
 //Sample checkboard grid
 var rows = [];
@@ -84,3 +102,18 @@ for (var i = 0; i < 5; i++) {
   rows.push(row);
 }
 console.log(drawTable(rows));
+
+//Information from MOUNTAINS file
+function dataTable(data) {
+  var keys = Object.keys(data[0]);
+  var headers = keys.map(function(name) {
+    return new UnderlinedCell(new TextCell(name));
+  });
+  var body = data.map(function(row) {
+    return keys.map(function(name) {
+      return new TextCell(String(row[name]));
+    });
+  });
+  return [headers].concat(body);
+}
+console.log(drawTable(dataTable(DATA)));
