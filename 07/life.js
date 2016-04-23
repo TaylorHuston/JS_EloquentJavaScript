@@ -48,12 +48,21 @@ Grid.prototype.get = function (vector) {
 Grid.prototype.set = function (vector, value) {
   this.space[vector.x + this.width * vector.y] = value;
 };
+Grid.prototype.forEach = function(f, context) {
+  for (var y = 0; y < this.height; y++) {
+    for (var x = 0; x < this.width; x++) {
+      var value = this.space[x + y * this.width];
+      if (value != null)
+        f.call(context, value, new Vector(x, y));
+    }
+  }
+};
 
 //Basic grid test
-var grid = new Grid(5, 5);
-console.log(grid.get(new Vector(1, 1))); // undefined
-grid.set(new Vector(1, 1), "X");
-console.log(grid.get(new Vector(1, 1))); // X
+//var grid = new Grid(5, 5);
+//console.log(grid.get(new Vector(1, 1))); // undefined
+//grid.set(new Vector(1, 1), "X");
+//console.log(grid.get(new Vector(1, 1))); // X
 
 //Function to map an elmenent to a character based on a legend, and vise-versa
 function elementFromChar(legend, ch) {
@@ -122,11 +131,10 @@ var directions = {
   "nw": new Vector(-1, -1)
 };
 
-var directionNames = "n ne e se s sw w nw".split(" ");
-
 
 //Basic critter that just moves in a straight line until it hits a wall
 function BouncingCritter() {
+  var directionNames = "n ne e se s sw w nw".split(" ");
   this.direction = randomElement(directionNames);
 };
 
