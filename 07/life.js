@@ -48,7 +48,7 @@ Grid.prototype.get = function (vector) {
 Grid.prototype.set = function (vector, value) {
   this.space[vector.x + this.width * vector.y] = value;
 };
-Grid.prototype.forEach = function(f, context) {
+Grid.prototype.forEach = function (f, context) {
   for (var y = 0; y < this.height; y++) {
     for (var x = 0; x < this.width; x++) {
       var value = this.space[x + y * this.width];
@@ -116,7 +116,35 @@ console.log(world.toString());
 //Walls don't do anything
 function Wall() {}
 
+//Function to iterate through the world and look for any object that can act
+World.prototype.turn = function () {
+  var acted = []; //So each critter will only move once per turn
+  this.grid.forEach(function (critter, vector) {
+    if (critter.act && acted.indexOf(critter) == -1) {
+      acted.push(critter);
+      this.letAct(critter, vector);
+    }
+  }, this);
+};
 
+World.prototype.letAct = function (critter, vector) {
+  var action = critter.act(new View(this, vector));
+  if (action && action.type == "move") {
+    var dest = this.checkDestination(action, vector);
+    if (dest && this.grid.get(dest) == null) {
+      this.grid.set(vector, null);
+      this.grid.set(dest, critter);
+    }
+  }
+};
+
+World.prototype.checkDestination = function (action, vector) {
+  if (directions.hasOwnProperty(action.direction)) {
+    var dest = vector.plus(directions[action.direction]);
+    if (this.grid.isInside(dest))
+      return dest;
+  }
+};
 //CRITTER LOGIC
 
 //Directions that the critters can go in
